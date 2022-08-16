@@ -26,10 +26,14 @@ function showTable(mangSP) {
     content += `
             <tr>
                 <td>${stt++}</td>
-                <td>${sp.tenSP}</td>
-                <td>${sp.gia}</td>
-                <td>${sp.hinhAnh}</td>
-                <td>${sp.moTa}</td>
+                <td>${sp.name}</td>
+                <td>${sp.price}</td>
+                <td>${sp.screen}</td>
+                <td>${sp.backCamera}</td>
+                <td>${sp.frontCamera}</td>
+                <td>${sp.img}</td>
+                <td>${sp.desc}</td>
+                <td>${sp.type}</td>
                 <td>
                     <button  onclick="getProductDetail('${sp.id}')"  class="btn btn-info" data-toggle="modal" data-target="#myModal"  >Xem</button>
                     <button class="btn btn-danger" onclick="deleteProduct('${
