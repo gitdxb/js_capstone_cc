@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap");
 :root {
   font-size: 16px;
-  color: white;
+  color: rgb(255, 255, 255);
   font-family: "Montserrat", sans-serif;
 }
 
@@ -31,7 +31,7 @@ button {
   border: none;
   background: none;
   outline: none;
-  color: white;
+  color: rgb(0, 0, 0);
   cursor: pointer;
   transition: 0.5s;
 }
@@ -40,7 +40,7 @@ button {
   position: relative;
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(to left, #8942a8, #ba382f);
+  background: linear-gradient( 102.4deg,  rgba(253,189,85,1) 7.8%, rgb(66, 13, 69) 100.3% );
   overflow: hidden;
 }
 
@@ -277,7 +277,9 @@ button {
 .card .details .name-fav strong {
   font-weight: 600;
 }
-
+.card .details .fa-heart {
+  color: white;
+}
 .fav {
   color: red;
 }
@@ -334,7 +336,7 @@ button {
 
 .side-nav {
   position: absolute;
-  background: #010101;
+  background: #fff;
   opacity: 0.95;
   height: 100%;
   width: 60%;
@@ -358,6 +360,7 @@ button {
   transform: translateY(1rem);
   font-size: 2rem;
   font-weight: 600;
+  color: rgb(7, 7, 8);
 }
 
 .side-nav .cart-items {
@@ -367,6 +370,7 @@ button {
   height: 50%;
   top: 10%;
   flex-direction: column;
+  color: rgb(7, 7, 8);
 }
 
 .side-nav .cart-items .empty-cart {
@@ -378,15 +382,16 @@ button {
 }
 
 .side-nav .cart-items .cart-item {
-  height: 5rem;
+  height: 6.5rem;
   width: 100%;
   align-items: center;
   justify-content: space-around;
   border-bottom: 1px solid whitesmoke;
+  align-self: flex-start;
 }
 
 .side-nav .cart-items .cart-item:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(170, 8, 8, 0.25);
 }
 
 .side-nav .cart-items .cart-item .cart-img {
@@ -413,6 +418,7 @@ button {
   font-weight: 600;
   margin-right: 20px;
   margin-bottom: 1rem;
+  color: #010101;
 }
 
 .side-nav .final .action {
@@ -422,14 +428,14 @@ button {
 .side-nav .final .action .btn {
   font-size: 1.2rem;
   padding: 1rem 2rem;
-  border: 1px solid white;
+  border: 1px solid rgb(6, 6, 6);
   margin-right: 20px;
   border-radius: 10px;
 }
 
 .side-nav .final .action .btn:hover {
-  color: black;
-  box-shadow: inset 20em 0 0 0 white;
+  color: rgb(59, 6, 6);
+  box-shadow: inset 20em 0 0 0 rgb(219, 121, 1);
 }
 
 .qty-change {
@@ -438,14 +444,14 @@ button {
 }
 
 .btn-qty {
-  border: 1px solid white;
+  border: 1px solid rgb(21, 20, 20);
   border-radius: 50%;
   padding: 2px 5px;
 }
 
 .btn-qty:hover {
-  background: white;
-  color: black;
+  background: rgb(21, 20, 20);
+  color: rgb(255, 255, 255);
 }
 
 .qty {

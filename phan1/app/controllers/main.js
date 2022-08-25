@@ -42,7 +42,7 @@ function displayProductList(productArray) {
             </div>
             <div class="purchase">
                     <p class="product-price">Giá: $${product.price}</p>
-                    <button class="add-btn"  onclick="getProductPhone('${product.id}')">
+                    <button class="add-btn"  onclick="addItem('${product.id}')">
                         Add <i class="fas fa-chevron-right"> </i>
                     </button>
             </div>
@@ -53,6 +53,7 @@ function displayProductList(productArray) {
   document.getElementById("productArray").innerHTML = content;
 }
 
+// filer phone type by brand
 function selectPhoneBrand() {
   var phoneList = [];
   var option = document.getElementById("productBrand").value;
@@ -89,46 +90,93 @@ function selectPhoneBrand() {
 Gợi ý: - tạo một mảng giỏ hàng - cart (biến global), mảng cart sẽ chứa các đối tượng cartItem
  */
 var cartArray = [];
-function addItem() {
+// add to cart
+function addItem(id) {
   productList
     .getProductDetail(id)
     .then((result) => {
-      if (cartArray.some((sp) => sp.id === id)) {
+      console.log(result.data);
+      if (cartArray.some((item) => item.id === id)) {
         cartArray.map((item) => {
           if (item.id === id) {
             item.quantity += 1;
           }
         });
       } else {
-        var spGH = new CartItem(
+        var cartItem = new CartItem(
           result.data.id,
           result.data.price,
           result.data.name,
           result.data.img
         );
-        cartArray.push(spGH);
+        cartArray.push(cartItem);
       }
       viewCart(cartArray);
     })
     .catch((error) => {
       console.log(error);
     });
+
+  // Cart total items count
+  itemCount = 1;
+  for (let i = 0; i < cartArray.length; i++) {
+    itemCount += cartArray[i].quantity;
+    console.log("something is here: ", itemCount);
+  }
+  CartItemsTotal(itemCount);
 }
 
+function viewCart(cartArray) {
+  var content = "";
+  cartArray.map(function (cartItem) {
+    content += `
+    <tr class="cart-items">
+        <div class="cart-item">
+            <td>
+            <div>
+                <img class="cart-img" src="${cartItem.img}" alt="">
+            </div>
+            </td>
+            <td class="name">
+                <strong>${cartItem.name}</strong>
+            </td>
+            <td>
+                <span class="qty-change">
+                <div>
+                <button class="btn-qty" onclick="qtyChange(this,'sub')"><i class="fas fa-chevron-left"></i></button>
+                <p class="qty">${cartItem.quantity}</p>
+                <button class="btn-qty" onclick="qtyChange(this,'add')"><i class="fas fa-chevron-right"></i></button>
+                </div></span>   
+            </td>
+            <td>
+                <p class="price">$ ${cartItem.price}</p>
+            </td>
+            <td>
+                <button onclick="removeItem(this)"><i class="fas fa-trash"></i></button>
+            </td>
+        </div>
+    </tr>
+        `;
+  });
+  document.getElementsByClassName("cart-items")[0].innerHTML = content;
+}
+
+// counting total number in the cart
+function CartItemsTotal(total) {
+  document.getElementsByClassName("total-qty")[0].innerHTML = total;
+}
 //side bar pop-up
 function sideNav(index) {
-    var sideNav = document.getElementsByClassName("side-nav")[0];
-    var cover = document.getElementsByClassName("cover")[0];
-    if (sideNav.style.right = index){
-        sideNav.style.right = "0";
-    } else {
-        sideNav.style.right = "-100%";
-    }
-    if (cover.style.display = index) {
-        cover.style.display = "block";
-    } else {
-        cover.style.display = "none";
-    }
+  var sideNav = document.getElementsByClassName("side-nav")[0];
+  var cover = document.getElementsByClassName("cover")[0];
+  if ((sideNav.style.right = index)) {
+    sideNav.style.right = "0";
+  } else {
+    sideNav.style.right = "-100%";
+  }
+  if ((cover.style.display = index)) {
+    cover.style.display = "block";
+  } else {
+    cover.style.display = "none";
+  }
 }
-
-
