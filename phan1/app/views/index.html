@@ -5,213 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ShoppingCart</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" integrity="sha512-g06pohSHYbSOHKq8tdDGXckE6C23Yt30xlTFDhrO0OcO/bNO2MWXb63oqU/Y23GDMNOon100eGHxZPBnT4QgMw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"
+      integrity="sha512-g06pohSHYbSOHKq8tdDGXckE6C23Yt30xlTFDhrO0OcO/bNO2MWXb63oqU/Y23GDMNOon100eGHxZPBnT4QgMw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="../../assets/css/style.css" />
   </head>
   <body>
     <div id="app">
       <div>
         <div class="banner">
-          <div class="main-cart">
-            <div class="card">
-              <div class="top-bar">
-                <i class="fab fa-apple"></i>
-                <em class="stocks">In Stock</em>
-              </div>
-              <div class="img-container">
-                <img
-                  class="product-img"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTJiKtlpQGkIeOyAPV3qQMNkl8uuRzfGWZtIDb_WgDnam8WjhpL&amp;usqp=CAU"
-                  alt=""
-                />
-                <div class="out-of-stock-cover"><span>Out Of Stock</span></div>
-              </div>
-              <div class="details">
-                <div class="name-fav">
-                  <strong class="product-name">Airpods Pro</strong>
-                  <button onclick="this.classList.toggle('fav')" class="heart">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                </div>
-                <div class="wrapper">
-                  <h5>Wireless Noise Cancelling Earphones</h5>
-                  <p>
-                    AirPods Pro have been designed to deliver active Noise
-                    Cancellation for immersive sound. Transparancy mode so much
-                    can hear your surroundings.
-                  </p>
-                </div>
-                <div class="purchase">
-                  <p class="product-price">$ 400</p>
-                  <span class="btn-add">
-                    <div>
-                      <button onclick="addItem(this)" class="add-btn">
-                        Add <i class="fas fa-chevron-right"></i>
-                      </button></div
-                  ></span>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="top-bar">
-                <i class="fab fa-apple"></i>
-                <em class="stocks">In Stock</em>
-              </div>
-              <div class="img-container">
-                <img
-                  class="product-img"
-                  src="https://purepng.com/public/uploads/large/apple-watch-pcq.png"
-                  alt=""
-                />
-                <div class="out-of-stock-cover"><span>Out Of Stock</span></div>
-              </div>
-              <div class="details">
-                <div class="name-fav">
-                  <strong class="product-name">Apple Watch</strong>
-                  <button onclick="this.classList.toggle('fav')" class="heart">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                </div>
-                <div class="wrapper">
-                  <h5>You’ve never seen a watch like this</h5>
-                  <p>
-                    The most advanced Apple Watch yet, featuring the Always-On
-                    Retina display, the ECG app, international emergency
-                    calling, fall detection and a built‑in compass.
-                  </p>
-                </div>
-                <div class="purchase">
-                  <p class="product-price">$ 500</p>
-                  <span class="btn-add">
-                    <div>
-                      <button onclick="addItem(this)" class="add-btn">
-                        Add <i class="fas fa-chevron-right"></i>
-                      </button></div
-                  ></span>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="top-bar">
-                <i class="fab fa-apple"></i>
-                <em class="stocks">In Stock</em>
-              </div>
-              <div class="img-container">
-                <img
-                  class="product-img"
-                  src="https://pngimg.com/uploads/macbook/macbook_PNG8.png"
-                  alt=""
-                />
-                <div class="out-of-stock-cover"><span>Out Of Stock</span></div>
-              </div>
-              <div class="details">
-                <div class="name-fav">
-                  <strong class="product-name">Macbook Pro</strong>
-                  <button onclick="this.classList.toggle('fav')" class="heart">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                </div>
-                <div class="wrapper">
-                  <h5>The best for the brightest</h5>
-                  <p>
-                    Designed for those who defy limits and change the world, the
-                    new MacBook Pro is by far the most powerful notebook we’ve
-                    ever made. it’s the ultimate pro notebook for the ultimate
-                    user.
-                  </p>
-                </div>
-                <div class="purchase">
-                  <p class="product-price">$ 2000</p>
-                  <span class="btn-add">
-                    <div>
-                      <button onclick="addItem(this)" class="add-btn">
-                        Add <i class="fas fa-chevron-right"></i>
-                      </button></div
-                  ></span>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="top-bar">
-                <i class="fab fa-apple"></i>
-                <em class="stocks">In Stock</em>
-              </div>
-              <div class="img-container">
-                <img
-                  class="product-img"
-                  src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-11-pro-midnight-green-select-2019?wid=940&amp;hei=1112&amp;fmt=png-alpha&amp;qlt=80&amp;.v=1566954990073"
-                  alt=""
-                />
-                <div class="out-of-stock-cover"><span>Out Of Stock</span></div>
-              </div>
-              <div class="details">
-                <div class="name-fav">
-                  <strong class="product-name">iPhone 11 pro</strong>
-                  <button onclick="this.classList.toggle('fav')" class="heart">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                </div>
-                <div class="wrapper">
-                  <h5>Pro cameras. Pro display. Pro performance</h5>
-                  <p>
-                    A mind‑blowing chip that doubles down on machine learning
-                    and pushes the boundaries of what a smartphone can do.
-                    Welcome to the first iPhone powerful enough to be called
-                    Pro.
-                  </p>
-                </div>
-                <div class="purchase">
-                  <p class="product-price">$ 2000</p>
-                  <span class="btn-add">
-                    <div>
-                      <button onclick="addItem(this)" class="add-btn">
-                        Add <i class="fas fa-chevron-right"></i>
-                      </button></div
-                  ></span>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="top-bar">
-                <i class="fab fa-apple"></i>
-                <em class="stocks">In Stock</em>
-              </div>
-              <div class="img-container">
-                <img
-                  class="product-img"
-                  src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-pro-12-select-wifi-spacegray-202003_FMT_WHH?wid=940&amp;hei=1112&amp;fmt=png-alpha&amp;qlt=80&amp;.v=1583553704156"
-                  alt=""
-                />
-                <div class="out-of-stock-cover"><span>Out Of Stock</span></div>
-              </div>
-              <div class="details">
-                <div class="name-fav">
-                  <strong class="product-name">iPad Pro</strong>
-                  <button onclick="this.classList.toggle('fav')" class="heart">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                </div>
-                <div class="wrapper">
-                  <h5>Your next computer is not a computer</h5>
-                  <p>
-                    It’s a magical piece of glass. It’s so fast most PC laptops
-                    can’t catch up. And you can use it with touch, pencil,
-                    keyboard and now trackpad. It’s the new iPad Pro.
-                  </p>
-                </div>
-                <div class="purchase">
-                  <p class="product-price">$ 1000</p>
-                  <span class="btn-add">
-                    <div>
-                      <button onclick="addItem(this)" class="add-btn">
-                        Add <i class="fas fa-chevron-right"></i>
-                      </button></div
-                  ></span>
-                </div>
-              </div>
-            </div>
+          <div class="phoneBrand">
+            <!-- onchange="filterProductList()" -->
+            <select id="productBrand" onchange="selectPhoneBrand()">
+              <option selected>Chọn Hãng</option>
+              <option value="Iphone">Iphone</option>
+              <option value="SamSung">SamSung</option>
+            </select>
           </div>
-
+          <div class="main-cart" id="productArray">
+            <!-- Product display here -->
+          </div>
           <div class="nav">
             <button onclick="sideNav(1)">
               <i class="fas fa-shopping-cart" style="font-size: 2rem"></i>
@@ -240,15 +57,17 @@
               </div>
             </div>
           </div>
-          <div class="stock-limit">
-            <em>You Can Only Buy 10 Items For Each Product</em>
-            <button class="btn-ok" onclick="limitPurchase(this)">Okay</button>
-          </div>
           <div class="order-now"></div>
         </div>
       </div>
     </div>
 
+    <!-- AXIOS -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="../services/ProductService.js"></script>
+    <script src="../models/Product.js"></script>
+    <script src="../controllers/main.js"></script>
     <!-- <script src="js/main.min.js"></script> -->
   </body>
 </html>
