@@ -15,6 +15,18 @@ div {
   display: flex;
 }
 
+/* ------------ Filtering phone brand ---------- */
+div.banner .phoneBrand {
+  display: block;
+  margin: 70px auto;
+  z-index: 1;
+}
+#productBrand {
+  width: 250px;
+  padding: 10px 10px;
+  border-radius: 6px;
+}
+
 button {
   border: none;
   background: none;
@@ -188,8 +200,8 @@ button {
   position: relative;
   flex-shrink: 0;
   height: 300px;
-  width: 200px;
-  background-color: #010101;
+  width: 230px;
+  background-color: white;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 7px 5px -5px #4d4b4b;
@@ -237,11 +249,12 @@ button {
 
 .top-bar .fa-apple {
   font-size: 1.5rem;
+  color: black;
 }
 
 .top-bar .stocks {
   font-size: 0.8rem;
-  color: lightgreen;
+  color: black;
 }
 
 .card .details {

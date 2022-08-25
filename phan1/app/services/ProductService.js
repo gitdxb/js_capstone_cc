@@ -1,5 +1,5 @@
 function ProductService() {
-    this.productList = [];
+    //this.productList = [];
 
     // Trả về đối tượng promise 
     this.getProductList = function () {
@@ -27,13 +27,13 @@ function ProductService() {
         });
     };
 
-    this.deleteProduct = function (id) {
-        console.log("id xoá", id);
-        return axios({
-            method: "delete",
-            url: `https://62e6a9370e5d74566aeacabb.mockapi.io/api/cc/v1/Products/${id}`,
-        });
-    };
+    // this.deleteProduct = function (id) {
+    //     console.log("id xoá", id);
+    //     return axios({
+    //         method: "delete",
+    //         url: `https://62e6a9370e5d74566aeacabb.mockapi.io/api/cc/v1/Products/${id}`,
+    //     });
+    // };
 
     // Lấy thông tin product theo ID
     this.getProductDetail = function (id) {
