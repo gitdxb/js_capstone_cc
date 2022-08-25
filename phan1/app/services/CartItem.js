@@ -3,5 +3,5 @@ function CartItem(id,price,name,img){
     this.price = price;
     this.name = name;
     this.img = img; 
-    this.quantity = 0; 
+    this.quantity = 1; 
 }
