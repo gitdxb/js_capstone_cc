@@ -20,7 +20,7 @@
   <body>
     <div class="container">
       <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Quản lý sản phẩm</a>
         <button
           class="navbar-toggler d-lg-none"
           type="button"
@@ -31,36 +31,11 @@
           aria-label="Toggle navigation"
         ></button>
         <div class="collapse navbar-collapse" id="collapsibleNavId">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="#"
-                >Home <span class="sr-only">(current)</span></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="dropdownId"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                >Dropdown</a
-              >
-              <div class="dropdown-menu" aria-labelledby="dropdownId">
-                <a class="dropdown-item" href="#">Action 1</a>
-                <a class="dropdown-item" href="#">Action 2</a>
-              </div>
-            </li>
-          </ul>
         </div>
       </nav>
 
       <header class="display-4 my-4">
-        Thực hành javascript - axios
+        Các mã sản phẩm điện thoại
       </header>
       <!-- Phan tab menu -->
       <ul class="nav nav-tabs" role="tablist">
@@ -73,7 +48,6 @@
             >Danh sách sản phẩm</a
           >
         </li>
-        
       </ul>
       <br />
       <!-- Tab panes -->
@@ -168,7 +142,31 @@
                   class="form-control"
                   placeholder="Nhập vào giá"
                 />
-              </div>             
+              </div>
+              <div class="form-group">
+                <label>Màn hình</label>
+                <input
+                  id="manHinhSP"
+                  class="form-control"
+                  placeholder="Nhập vào màn hình"
+                />
+              </div>    
+              <div class="form-group">
+                <label>Camera sau</label>
+                <input
+                  id="camSauSP"
+                  class="form-control"
+                  placeholder="Nhập vào chi tiết camera sau"
+                />
+              </div>   
+              <div class="form-group">
+                <label>Camera trước</label>
+                <input
+                  id="camTruocSP"
+                  class="form-control"
+                  placeholder="Nhập vào chi tiết camera trước"
+                />
+              </div>            
               <div class="form-group">
                 <label>Hình Ảnh</label>
                 <input
@@ -180,6 +178,14 @@
               <div class="form-group">
                 <label>Mô Tả</label>
                 <textarea id="moTaSP" class="form-control" cols="30" rows ="5" ></textarea>
+              </div>
+              <div class="form-group">
+                <label>Loại</label>
+                <input
+                  id="loaiSP"
+                  class="form-control"
+                  placeholder="Nhập vào loại sản phẩm"
+                />
               </div>
             </div>
             <!-- Modal footer -->
@@ -218,9 +224,8 @@
 
     <!-- Thư viện Axios giúp giao tiếp với API -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../services/SanPhamService.js"></script>
-    <script src="../models/SanPham.js"></script>
-    <script src="../controllers/main.js"></script>
-    <!-- <script src="../controllers/main-fetch.js"></script> -->
+    <script src="./services/SanPhamService.js"></script>
+    <script src="./models/SanPham.js"></script>
+    <script src="./controllers/main.js"></script>
   </body>
 </html>
