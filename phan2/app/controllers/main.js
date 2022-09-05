@@ -84,7 +84,7 @@ function addProduct() {
   // validate image
   isValidInp &= validate.checkEmpty(img, "tbImg", "Thông tin chưa điền");
   // validate desc and type
-  isValidInp &= validate.checkEmpty(desc, "tbDesc", "Thông tin chưa điền") && validate.checkTextInput(desc, "tbDesc", "Thông tin chưa đúng, chỉ điền chữ");
+  isValidInp &= validate.checkEmpty(desc, "tbDesc", "Thông tin chưa điền");
   isValidInp &= validate.checkEmpty(type, "tbType", "Thông tin chưa điền") && validate.checkTextInput(type, "tbType", "Thông tin chưa đúng, chỉ điền chữ");
 
   if (isValidInp) {
@@ -176,7 +176,7 @@ function updateProduct(id) {
    // validate image
    isValidInp &= validate.checkEmpty(img, "tbImg", "Thông tin chưa điền");
    // validate desc and type
-   isValidInp &= validate.checkEmpty(desc, "tbDesc", "Thông tin chưa điền") && validate.checkTextInput(desc, "tbDesc", "Thông tin chưa đúng, chỉ điền chữ");
+   isValidInp &= validate.checkEmpty(desc, "tbDesc", "Thông tin chưa điền");
    isValidInp &= validate.checkEmpty(type, "tbType", "Thông tin chưa điền") && validate.checkTextInput(type, "tbType", "Thông tin chưa đúng, chỉ điền chữ");
 
    if (isValidInp) {
