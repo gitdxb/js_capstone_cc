@@ -1,6 +1,8 @@
 // global
 var spService = new SanPhamService();
+var validate = new Validation();
 
+// get data API to display
 function getProductList() {
   spService
     .getProductList()
@@ -15,6 +17,8 @@ function getProductList() {
 }
 getProductList();
 
+
+// display API content to UI
 function showTable(mangSP) {
   var content = "";
   var stt = 1; // Số thứ tự trên giao diện
@@ -23,11 +27,11 @@ function showTable(mangSP) {
             <tr>
                 <td>${stt++}</td>
                 <td>${sp.name}</td>
-                <td>${sp.price}</td>
+                <td>$${sp.price}</td>
                 <td>${sp.screen}</td>
                 <td>${sp.backCamera}</td>
                 <td>${sp.frontCamera}</td>
-                <td>${sp.img}</td>
+                <td><img src="${sp.img}" style="width: 50px; height: 50px;" alt=""></td>
                 <td>${sp.desc}</td>
                 <td>${sp.type}</td>
                 <td>
@@ -49,13 +53,13 @@ function handleForm() {
     `;
     var formELE = document.querySelectorAll("#myModal .form-control");
     for (var i = 0; i < formELE.length; i++) {
-        //console.log(formELE[i].value);
         formELE[i].value = "";
         
     }
 }
 document.querySelector("#btnThemSP").onclick = handleForm;
 
+// adding new product
 function addProduct() {
   var name = document.querySelector("#TenSP").value;
   var price = document.querySelector("#GiaSP").value;
@@ -66,29 +70,45 @@ function addProduct() {
   var desc = document.querySelector("#moTaSP").value;
   var type = document.querySelector("#loaiSP").value;
 
-  var sp = new SanPham(name, price, screen, backCamera, frontCamera, img, desc, type);
-  console.log(sp);
+  // validate input
+  var isValidInp = true;
+  // validate product name
+  isValidInp &= validate.checkEmpty(name, "tbName", "Thông tin chưa điền");
+  // validate price
+  isValidInp &= validate.checkEmpty(price, "tbPrice", "Thông tin chưa điền") && validate.checkPrice(price, "tbPrice", "Chỉ được nhập số");
+  // validate screen
+  isValidInp &= validate.checkEmpty(screen, "tbScreen", "Thông tin chưa điền") && validate.checkScreen(screen, "tbScreen", "Thông tin chưa đúng. VD: định dạng 'screen + số'");
+  // validate camera
+  isValidInp &= validate.checkEmpty(backCamera, "tbBackCamera", "Thông tin chưa điền");
+  isValidInp &= validate.checkEmpty(frontCamera, "tbFrontCamera", "Thông tin chưa điền");
+  // validate image
+  isValidInp &= validate.checkEmpty(img, "tbImg", "Thông tin chưa điền");
+  // validate desc and type
+  isValidInp &= validate.checkEmpty(desc, "tbDesc", "Thông tin chưa điền") && validate.checkTextInput(desc, "tbDesc", "Thông tin chưa đúng, chỉ điền chữ");
+  isValidInp &= validate.checkEmpty(type, "tbType", "Thông tin chưa điền") && validate.checkTextInput(type, "tbType", "Thông tin chưa đúng, chỉ điền chữ");
 
-  // Kết nối với API để truyền dữ liệu xuống BE
-  spService
-    .addProduct(sp)
-    .then(function (result) {
-      // thành công
-      console.log(result);
+  if (isValidInp) {
+    var sp = new SanPham(name, price, screen, backCamera, frontCamera, img, desc, type);
 
-      // Tắt popup form
-      // onclick => thêm sư kiện click
-      // click() gọi sự kiện click đang có sẵn của thẻ (thư viện, code được tạo ra sẵn ở dự án)
-      document.querySelector("#myModal .close").click();
-      // Load lại table
-      getProductList();
-    })
-    .catch(function (error) {
-      // thất bại
-      console.log(error);
-    });
+    // Kết nối với API để truyền dữ liệu xuống BE
+    spService
+      .addProduct(sp)
+      .then(function (result) {
+        // thành công
+        console.log("thành công: ", result);
+        document.querySelector("#myModal .close").click();
+        // Load lại table
+        getProductList();
+      })
+      .catch(function (error) {
+        // thất bại
+        console.log(error);
+      });
+  }
+ 
 }
 
+// delete a product
 function deleteProduct(id) {
   spService
     .deleteProduct(id)
@@ -105,34 +125,33 @@ function deleteProduct(id) {
     });
 }
 
+// get a particular product from BE 
 function getProductDetail(id) {
-    console.log(id);
-
     spService.getProductDetail(id)
         .then(function (result) {
-            // console.log(result);
-            console.log(result.data);
             var sp = result.data;
             document.querySelector("#TenSP").value = sp.name;
-            document.querySelector("#GiaSP").value = result.data.price;
-            document.querySelector("#manHinhSP").value = result.data.screen;
-            document.querySelector("#camSauSP").value = result.data.backCamera;
-            document.querySelector("#camTruocSP").value = result.data.frontCamera;
-            document.querySelector("#HinhSP").value = result.data.img;
-            document.querySelector("#moTaSP").value = result.data.desc;
-            document.querySelector("#loaiSP").value = result.data.type;
+            document.querySelector("#GiaSP").value = sp.price;
+            document.querySelector("#manHinhSP").value = sp.screen;
+            document.querySelector("#camSauSP").value = sp.backCamera;
+            document.querySelector("#camTruocSP").value = sp.frontCamera;
+            document.querySelector("#HinhSP").value = sp.img;
+            document.querySelector("#moTaSP").value = sp.desc;
+            document.querySelector("#loaiSP").value = sp.type;
 
             //Thêm button Update khi click Xem => cb cho chức năng cập nhật
             document.querySelector("#myModal .modal-footer").innerHTML = `
-            <button class="btn btn-primary" onclick="updateProduct('${result.data.id}')" >Update</button>
+            <button class="btn btn-primary" onclick="updateProduct('${sp.id}')" >Update</button>
         `;
 
         })
         .catch(function (error) {
-            console.log(error);
+          console.log(error);
         })
 }
 
+
+// update new product info and display to UI
 function updateProduct(id) {
   var name = document.querySelector("#TenSP").value;
   var price = document.querySelector("#GiaSP").value;
@@ -143,15 +162,35 @@ function updateProduct(id) {
   var desc = document.querySelector("#moTaSP").value;
   var type = document.querySelector("#loaiSP").value;
 
-  var spUpdate = new SanPham(name, price, screen, backCamera, frontCamera, img, desc, type);
-  console.log(spUpdate);
-  spService.updateProduct(id, spUpdate).then(function(result){
+   // validate input
+   var isValidInp = true;
+   // validate product name
+   isValidInp &= validate.checkEmpty(name, "tbName", "Thông tin chưa điền");
+   // validate price
+   isValidInp &= validate.checkEmpty(price, "tbPrice", "Thông tin chưa điền") && validate.checkPrice(price, "tbPrice", "Chỉ được nhập số");
+   // validate screen
+   isValidInp &= validate.checkEmpty(screen, "tbScreen", "Thông tin chưa điền") && validate.checkScreen(screen, "tbScreen", "Thông tin chưa đúng. VD: thử 'screen 12'");
+   // validate camera
+   isValidInp &= validate.checkEmpty(backCamera, "tbBackCamera", "Thông tin chưa điền");
+   isValidInp &= validate.checkEmpty(frontCamera, "tbFrontCamera", "Thông tin chưa điền");
+   // validate image
+   isValidInp &= validate.checkEmpty(img, "tbImg", "Thông tin chưa điền");
+   // validate desc and type
+   isValidInp &= validate.checkEmpty(desc, "tbDesc", "Thông tin chưa điền") && validate.checkTextInput(desc, "tbDesc", "Thông tin chưa đúng, chỉ điền chữ");
+   isValidInp &= validate.checkEmpty(type, "tbType", "Thông tin chưa điền") && validate.checkTextInput(type, "tbType", "Thông tin chưa đúng, chỉ điền chữ");
+
+   if (isValidInp) {
+    var spUpdate = new SanPham(name, price, screen, backCamera, frontCamera, img, desc, type);
+    spService.updateProduct(id, spUpdate).then(function(result){
     // thành công
-    console.log(result);
+    console.log("Update ok: ", result.data);
     document.querySelector('#myModal .close').click();
     getProductList();
-  }).catch(function(error){
+    }).catch(function(error){
     // thất bại
     console.log(error);
-  })
+    })
+
+   }
+  
 }

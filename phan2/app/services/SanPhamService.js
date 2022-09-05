@@ -24,8 +24,8 @@ function SanPhamService() {
 
   this.getProductDetail = function(id){
     return axios({
-        method: 'GET',
-        url: `https://6065c01ab8fbbd001756734b.mockapi.io/Products/${id}`,
+        method: 'get',
+        url: `https://62e6a9370e5d74566aeacabb.mockapi.io/api/cc/v1/Products/${id}`,
     });
 
 }

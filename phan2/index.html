@@ -19,24 +19,11 @@
 
   <body>
     <div class="container">
-      <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Quản lý sản phẩm</a>
-        <button
-          class="navbar-toggler d-lg-none"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapsibleNavId"
-          aria-controls="collapsibleNavId"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        ></button>
-        <div class="collapse navbar-collapse" id="collapsibleNavId">
-        </div>
-      </nav>
 
       <header class="display-4 my-4">
         Các mã sản phẩm điện thoại
       </header>
+      
       <!-- Phan tab menu -->
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
@@ -134,6 +121,7 @@
                   class="form-control"
                   placeholder="Nhập vào tên sản phẩm"
                 />
+                <span class="text-danger" id="tbName"></span>
               </div>
               <div class="form-group">
                 <label>Giá</label>
@@ -142,6 +130,7 @@
                   class="form-control"
                   placeholder="Nhập vào giá"
                 />
+                <span class="text-danger" id="tbPrice"></span>
               </div>
               <div class="form-group">
                 <label>Màn hình</label>
@@ -150,6 +139,7 @@
                   class="form-control"
                   placeholder="Nhập vào màn hình"
                 />
+                <span class="text-danger" id="tbScreen"></span>
               </div>    
               <div class="form-group">
                 <label>Camera sau</label>
@@ -158,6 +148,7 @@
                   class="form-control"
                   placeholder="Nhập vào chi tiết camera sau"
                 />
+                <span class="text-danger" id="tbBackCamera"></span>
               </div>   
               <div class="form-group">
                 <label>Camera trước</label>
@@ -166,6 +157,7 @@
                   class="form-control"
                   placeholder="Nhập vào chi tiết camera trước"
                 />
+                <span class="text-danger" id="tbFrontCamera"></span>
               </div>            
               <div class="form-group">
                 <label>Hình Ảnh</label>
@@ -175,9 +167,11 @@
                   placeholder="Nhập vào hình sản phẩm"
                 />
               </div>
+              <span class="text-danger" id="tbImg"></span>
               <div class="form-group">
                 <label>Mô Tả</label>
                 <textarea id="moTaSP" class="form-control" cols="30" rows ="5" ></textarea>
+                <span class="text-danger" id="tbDesc"></span>
               </div>
               <div class="form-group">
                 <label>Loại</label>
@@ -186,6 +180,7 @@
                   class="form-control"
                   placeholder="Nhập vào loại sản phẩm"
                 />
+                <span class="text-danger" id="tbType"></span>
               </div>
             </div>
             <!-- Modal footer -->
@@ -226,6 +221,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./app/services/SanPhamService.js"></script>
     <script src="./app/models/SanPham.js"></script>
+    <script src="./app/services/Validation.js"></script>
     <script src="./app/controllers/main.js"></script>
   </body>
 </html>
