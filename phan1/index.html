@@ -1,5 +1,3 @@
-<!-- This file is to deploy on Vercel -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,11 +32,12 @@
             <button onclick="sideNav(1)">
               <i class="fas fa-shopping-cart" style="font-size: 2rem"></i>
             </button>
-            
+
             <span class="total-qty">0</span>
           </div>
           <div onclick="sideNav(0)" class="cover"></div>
           <div class="cover purchase-cover"></div>
+
           <div class="cart">
             <div class="side-nav">
               <button onclick="sideNav(0)"><i class="fas fa-times"></i></button>
@@ -47,7 +46,7 @@
               <div class="final">
                 <strong>Total: $ <span class="total">0</span></strong>
                 <div class="action">
-                  <button onclick="buy(1)" class="btn buy">
+                  <button onclick="buy()" class="btn buy">
                     Purchase
                     <i class="fas fa-credit-card" style="color: #6665dd"></i>
                   </button>
@@ -59,7 +58,41 @@
               </div>
             </div>
           </div>
-          <div class="order-now"></div>
+          <div class="order-now" style="display: none;">
+            <div class="invoice">
+              <div class="shipping-items">
+                <div class="item-names">
+                  
+                </div>
+                <div class="items-price">
+                  
+                </div>
+              </div>
+            <hr>
+              <div class="payment">
+                <em>payment</em>
+                <div>
+                  <p>total amount to be paid:</p><span class="pay"></span>
+                </div>
+              </div>
+              <div class="order">
+                <button onclick="order()" class="btn-order btn">Order Now</button>
+                <button onclick="cancelOrder()" class="btn-cancel btn">Cancel</button>
+              </div>
+            </div>
+          </div>
+          <div class="pay-now cover" style="display: none;">
+            <div class="invoice" style="height: 500px; width: 400px;">
+              <div>
+                <div class="order-details">
+                  <em>your order has been placed</em>
+                  <p>Your order-id is : <span id="order_id">000</span></p>
+                  <p>your order will be delivered to you in 3-5 working days</p>
+                  <p>you can pay <span id="total_pay">$...</span> by card or any online transaction method after the products have been dilivered to you</p>
+                </div>
+                <button onclick="okay()" class="btn-ok">okay</button>
+              </div></div>
+          </div>
         </div>
       </div>
     </div>
