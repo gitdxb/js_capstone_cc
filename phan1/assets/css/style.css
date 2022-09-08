@@ -484,8 +484,13 @@ button {
 .invoice .shipping-items .items-price {
   flex-direction: column;
   justify-content: space-around;
+  
 }
 
+.invoice .shipping-items .item-names,
+.invoice .shipping-items .items-price span {
+  margin-bottom: 13px;
+}
 .invoice .payment {
   flex-direction: column;
 }
@@ -564,6 +569,12 @@ button {
   left: 0;
   right: 0;
   background: #5bc0be;
+}
+
+#purchase {
+  height: 100vh;
+  width: 100%;
+  margin: auto 0;
 }
 
 @media (max-width: 768px) {
