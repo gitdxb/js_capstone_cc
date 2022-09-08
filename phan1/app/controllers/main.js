@@ -1,4 +1,4 @@
-// Global
+/* -------------------------------- // Global ------------------------------- */
 var productList = new ProductService();
 
 function getProductList() {
@@ -53,7 +53,7 @@ function displayProductList(productArray) {
   document.getElementById("productArray").innerHTML = content;
 }
 
-// filer phone type by brand
+/* ---------------------- // filer phone type by brand ---------------------- */
 function selectPhoneBrand() {
   var phoneList = [];
   var option = document.getElementById("productBrand").value;
@@ -84,22 +84,17 @@ function selectPhoneBrand() {
     });
 }
 
-// add item to cart
-/**
- * Cho phép người dùng chọn sản phẩm bỏ vào giỏ hàng
-Gợi ý: - tạo một mảng giỏ hàng - cart (biến global), mảng cart sẽ chứa các đối tượng cartItem
- */
+/* --------------------------- // add item to cart -------------------------- */
 var cartArray = [];
-// add to cart
 function addItem(id) {
   productList
     .getProductDetail(id)
     .then((result) => {
-      console.log(result.data);
       if (cartArray.some((item) => item.id === id)) {
         cartArray.map((item) => {
           if (item.id === id) {
             item.quantity += 1;
+            item.calSum();
           }
         });
       } else {
@@ -108,9 +103,10 @@ function addItem(id) {
           result.data.price,
           result.data.name,
           result.data.img
-        );
-        cartArray.push(cartItem);
-      }
+          );
+          cartItem.calSum();
+          cartArray.push(cartItem);
+        }
       viewCart(cartArray);
     })
     .catch((error) => {
@@ -121,9 +117,9 @@ function addItem(id) {
   itemCount = 1;
   for (let i = 0; i < cartArray.length; i++) {
     itemCount += cartArray[i].quantity;
-    console.log("something is here: ", itemCount);
   }
   CartItemsTotal(itemCount);
+  setLocalStorage();
 }
 
 function viewCart(cartArray) {
@@ -143,29 +139,93 @@ function viewCart(cartArray) {
             <td>
                 <span class="qty-change">
                 <div>
-                <button class="btn-qty" onclick="qtyChange(this,'sub')"><i class="fas fa-chevron-left"></i></button>
+                <button class="btn-qty" onclick="sub(${cartItem.id})"><i class="fas fa-chevron-left"></i></button>
                 <p class="qty">${cartItem.quantity}</p>
-                <button class="btn-qty" onclick="qtyChange(this,'add')"><i class="fas fa-chevron-right"></i></button>
+                <button class="btn-qty" onclick="add(${cartItem.id})"><i class="fas fa-chevron-right"></i></button>
                 </div></span>   
             </td>
             <td>
-                <p class="price">$ ${cartItem.price}</p>
+                <p class="price">$ ${cartItem.value}</p>
             </td>
             <td>
-                <button onclick="removeItem(this)"><i class="fas fa-trash"></i></button>
+                <button onclick="removeItem('${cartItem.id}')"><i class="fas fa-trash"></i></button>
             </td>
         </div>
     </tr>
         `;
   });
   document.getElementsByClassName("cart-items")[0].innerHTML = content;
+  getCartSum(cartArray);
+  setLocalStorage();
 }
 
-// counting total number in the cart
+/* ------------------- // update cart total payable amout ------------------- */
+function getCartSum (cartArray) {
+  let sum = 0;
+  cartArray.map((item) => {
+    let { value } = item;
+    sum += value;
+  })
+  document.querySelector(".total").innerHTML = sum;
+}
+
+/* --------------------------- // delete a product -------------------------- */
+function removeItem(id) {
+  
+  cartArray.map((cartItem) => {
+    if (id == cartItem.id) {
+      
+      const locateIndexPos = cartArray.findIndex(object => {
+        return object.id === cartItem.id;
+      })
+      // delete that obj in cartArray
+      cartArray.splice(locateIndexPos, 1);
+      
+      //update new Cart quantity on UI
+      var currentCartQty = Number(document.querySelector(".total-qty").innerHTML);
+      currentCartQty = currentCartQty - cartItem.quantity;
+      CartItemsTotal(currentCartQty);
+
+      //view updated cart on checkout UI
+      viewCart(cartArray);
+    } 
+  });
+  setLocalStorage();
+}
+
+/* ------------ // remove all and everything, no more shopping!!! ----------- */
+function clearCart () {
+  cartArray.splice(0, cartArray.length);
+  viewCart(cartArray);
+  CartItemsTotal(0);
+  setLocalStorage();
+}
+
+/* ------------------ // counting total number in the cart ------------------ */
 function CartItemsTotal(total) {
   document.getElementsByClassName("total-qty")[0].innerHTML = total;
 }
-//side bar pop-up
+
+/* ---------------------------- // local storage ---------------------------- */
+function setLocalStorage() {
+  localStorage.setItem("MobileList", JSON.stringify(cartArray));
+  localStorage.setItem("TotalCart", JSON.stringify(document.querySelector(".total-qty").innerHTML));
+}
+
+function getLocalStorage() {
+  if (localStorage.getItem("MobileList") != undefined) {
+    cartArray = JSON.parse(localStorage.getItem("MobileList"));
+  }
+  if (localStorage.getItem("TotalCart") != undefined) {
+    lastTotal = JSON.parse(localStorage.getItem("TotalCart"));
+    CartItemsTotal(lastTotal);
+  }
+
+  viewCart(cartArray);
+}
+getLocalStorage();
+
+/* ---------------------------- //side bar pop-up --------------------------- */
 function sideNav(index) {
   var sideNav = document.getElementsByClassName("side-nav")[0];
   var cover = document.getElementsByClassName("cover")[0];
@@ -179,4 +239,106 @@ function sideNav(index) {
   } else {
     cover.style.display = "none";
   }
+}
+
+/* ---------------------------- // purchase page ---------------------------- */
+function buy() {
+  showPurchase();
+  var content_name = "";
+  var content_price = "";
+  cartArray.map(function (cartItem) {
+    content_name += `
+        <span>${cartItem.quantity} x ${cartItem.name}</span>
+    `;
+
+    content_price += `
+      <span>$${cartItem.value}</span>
+    `
+  });
+  document.querySelector(".item-names").innerHTML = content_name;
+  document.querySelector(".items-price").innerHTML = content_price;
+  
+  let total = document.querySelector(".total").innerHTML;
+  document.querySelector(".pay").innerHTML = "$ " + total;
+
+}
+
+function showPurchase() {
+  if (cartArray == '') {
+    alert('Giỏ hàng đang trống, bạn không thể thanh toán');
+    window.location.reload();
+  }
+  document.getElementsByClassName("side-nav")[0].style.display = "none";
+  var cover = document.getElementsByClassName("purchase-cover")[0];
+  document.getElementsByClassName("order-now")[0].style.display = "block";
+  if (cover.style.display == "none") {
+    cover.style.display = "block";
+  } else {
+    cover.style.display = "none";
+  }
+}
+
+function cancelOrder() {
+  document.getElementsByClassName("order-now")[0].style.display = "none";
+  document.getElementsByClassName("purchase-cover")[0].style.display = "none";
+  document.getElementsByClassName("invoice")[0].style.display = "none";
+  window.location.reload();
+}
+
+/* ------------------------------ // payment ok ----------------------------- */
+function order() {
+  document.getElementsByClassName("invoice")[0].style.display = "none";
+  document.querySelector(".pay-now").style.display = "block";
+  // generate randome 3 digits order ID ^^
+  var orderID =  Math.floor( Math.random()*999 ) + 100;
+  document.querySelector("#order_id").innerHTML = orderID;
+
+  let total = document.querySelector(".total").innerHTML;
+  document.querySelector("#total_pay").innerHTML = "$ " + total;
+}
+
+function okay() {
+  alert('Thank you for shopping with us!');
+  window.location.reload();
+  clearCart();
+}
+
+/* ------------------------- Quantity change in cart ------------------------ */
+function sub (id){
+  cartArray.map((item) => {
+    if (item.id == id) {
+      item.quantity -= 1;
+      if (item.quantity == 0) {
+        removeItem(item.id);
+      }
+      item.value = item.price * item.quantity;
+    }
+  })
+  viewCart(cartArray);
+
+  // Cart total items count
+  itemCount = 0;
+  for (let i = 0; i < cartArray.length; i++) {
+    itemCount += cartArray[i].quantity;
+  }
+  CartItemsTotal(itemCount);
+  setLocalStorage();
+}
+
+function add (id) {
+  cartArray.map((item) => {
+    if (item.id == id) {
+      item.quantity += 1;
+      item.value = item.price * item.quantity;
+    }
+  })
+  viewCart(cartArray);
+
+  // Cart total items count
+  itemCount = 0;
+  for (let i = 0; i < cartArray.length; i++) {
+    itemCount += cartArray[i].quantity;
+  }
+  CartItemsTotal(itemCount);
+  setLocalStorage();
 }
